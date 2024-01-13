@@ -1,11 +1,18 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QFileDialog, QLabel
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap
 from datetime import datetime
 from database import Database
 
 class MainPage(QWidget):
     def __init__(self, parent):
         super(MainPage, self).__init__(parent)
+        self.setGeometry(100, 100, 700, 400)
+        self.setWindowTitle('Main Page')
+        self.image_label = QLabel(self)
+        self.image_label.setAlignment(Qt.AlignCenter)
+        self.image_label.setFixedSize(300, 200)
 
         self.upload_button = QPushButton('Upload', self)
         self.process_button = QPushButton('Process', self)
@@ -16,6 +23,7 @@ class MainPage(QWidget):
         self.logout_button.clicked.connect(self.logout)
 
         layout = QVBoxLayout()
+        layout.addWidget(self.image_label)
         layout.addWidget(self.upload_button)
         layout.addWidget(self.process_button)
         layout.addWidget(self.logout_button)
@@ -23,19 +31,26 @@ class MainPage(QWidget):
         self.setLayout(layout)
 
     def upload(self):
-        file_dialog = QFileDialog()
-        file_name, _ = file_dialog.getOpenFileName(None, 'Open Image File', '',
+        try:
+            file_dialog = QFileDialog()
+            file_name, _ = file_dialog.getOpenFileName(self, 'Open Image File', '',
                                                    'Image Files (*.png *.jpg *.bmp);;All Files (*)')
-        if file_name:
-            # Display the uploaded image
-            pixmap = QtGui.QPixmap(file_name)
+            print("Displaying image")
 
-            # Calculate the new size (e.g., 300x200)
-            new_size = QtCore.QSize(100, 50)
+            if file_name:
+                # Display the uploaded image
+                pixmap = QPixmap(file_name)
+                pixmap = pixmap.scaled(300, 200, aspectRatioMode=1)  # Maintain aspect ratio
+                self.image_label.setPixmap(pixmap)
+                print("Images should be displayed")
+
+
+        except Exception as e:
+            print(f"Error creating user: {e}")
 
             # Display the scaled image
-            self.image_label.setPixmap(pixmap.scaled(new_size, QtCore.Qt.KeepAspectRatio))
-            self.image_label.show()
+            #self.image_label.setPixmap(pixmap.scaled(new_size, QtCore.Qt.KeepAspectRatio))
+           # self.image_label.show()
 
 
     def process(self):

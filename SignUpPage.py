@@ -1,28 +1,28 @@
  #SignUpPage.py
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout
-from database import Database
+#from database import Database
 from LoginPage import LoginPage
 import pyrebase
 
-firebaseConfig={
-    'apiKey': "AIzaSyBUTX8Rim1OMPAKOMFjRzsf4CHmPW_6gMY",
-    'authDomain': "authdemo-79174.firebaseapp.com",
-    'databaseURL':"https://authdemo-79174.firebaseio.com",
-    'projectId': "authdemo-79174",
-    'storageBucket': "authdemo-79174.appspot.com",
-    'messagingSenderId': "498091607020",
-    'appId': "1:498091607020:web:0142211b6f901ad33cf6c9",
-    'measurementId': "G-R733GSGM2L"}
+firebaseConfig = {
+  'apiKey': "AIzaSyAD2ci7C4qhkKHW8wZa6UYUAwU485Sed74",
+  'authDomain': "rice1234334.firebaseapp.com",
+  'databaseURL': "https://rice1234334-default-rtdb.asia-southeast1.firebasedatabase.app",
+  'projectId': "rice1234334",
+  'storageBucket': "rice1234334.appspot.com",
+  'messagingSenderId': "950315200025",
+  'appId': "1:950315200025:web:14fae278a5712f9b178488",
+  'measurementId': "G-XQDJP6N0HD"
+};
 
 firebase=pyrebase.initialize_app(firebaseConfig)
-
 auth=firebase.auth()
-
-
 
 class SignUpPage(QWidget):
     def __init__(self, parent):
         super(SignUpPage, self).__init__(parent)
+        self.setGeometry(100, 100, 700, 400)
+        self.setWindowTitle('Sign Up Page')
 
         self.email_label = QLabel('Email:')
         self.email_input = QLineEdit()
@@ -65,10 +65,8 @@ class SignUpPage(QWidget):
 
         elif password == password2:
             try:
-                print(password)
-                print(password2)
                 auth.create_user_with_email_and_password(email, password)
-                login = Login()
+                #print("Signed up sucessfully")
                 login_page = LoginPage(self)
                 self.parent().setCentralWidget(login_page)
             except:

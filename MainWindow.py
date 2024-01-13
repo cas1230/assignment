@@ -8,7 +8,8 @@ from MainPage import MainPage
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
-
+        self.setGeometry(100, 100, 700, 400)
+        self.setWindowTitle('Main Window')
         self.login_button = QPushButton('Login', self)
         self.signup_button = QPushButton('Sign Up', self)
 
