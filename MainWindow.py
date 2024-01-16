@@ -1,8 +1,9 @@
 from PyQt5.QtWidgets import QMainWindow, QPushButton, QVBoxLayout, QApplication, QWidget
 from LoginPage import LoginPage
-from LoginPage2 import LoginPage2
 from SignUpPage import SignUpPage
-from MainPage import MainPage
+#from MainPage import MainPage
+from PostResultPage import PostResultPage
+
 
 
 class MainWindow(QMainWindow):
@@ -25,15 +26,14 @@ class MainWindow(QMainWindow):
 
         self.signup_button.clicked.connect(self.show_signup_page)
 
+        self.post_result_page = PostResultPage()
+        self.setCentralWidget(self.post_result_page)
+
     def show_login_page(self):
         login_page = LoginPage(self)
-        #self.login_page.show()
-        #self.hide()
         self.setCentralWidget(login_page)
     def show_signup_page(self):
         signup_page = SignUpPage(self)
-        #self.login_page.hide()
-        #self.hide()
         self.setCentralWidget(signup_page)
 
 if __name__ == '__main__':

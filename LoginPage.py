@@ -61,7 +61,7 @@ class LoginPage(QWidget):
                 #print("Opening Firebase")
                 auth.sign_in_with_email_and_password(email, password)
                 print("Logged in successfully")
-                main_page = MainPage(self)
+                main_page = MainPage()
                 self.parent().setCentralWidget(main_page)
             except Exception as e:
                 print(f"Error creating user: {e}")
